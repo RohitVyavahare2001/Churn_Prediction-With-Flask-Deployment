@@ -26,10 +26,3 @@ This project is a **web-based prediction result application** that displays user
   - Flask for routing and serving static files.
 
 ---
-
-## Installation and Setup
-
-### 1. Clone the Repository
-```bash
-https://github.com/RohitVyavahare2001/Churn_Prediction-With-Flask-Deployment
-cd your-repo-name
