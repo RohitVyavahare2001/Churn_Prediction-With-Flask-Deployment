@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+
+        .result-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .result-content {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .result-content p {
+            margin-bottom: 10px;
+        }
+
+        .result-content .highlight {
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="result-container">
+        <h2>Prediction Result</h2>
+        <div class="result-content">
+            <p><span class="highlight">Gender:</span> {{ gender }}</p>
+            <p><span class="highlight">Age:</span> {{ age }}</p>
+            <p><span class="highlight">Tenure:</span> {{ tenure }}</p>
+            <p><span class="highlight">Monthly Charges:</span> {{ monthlycharges }}</p>
+            <p><span class="highlight">Total Charges:</span> {{ totalcharges }}</p>
+            <p><span class="highlight">Payment Method:</span> {{ paymentmethod }}</p>
+            <p><span class="highlight">Service Usage 1:</span> {{ serviceusage1 }}</p>
+            <p><span class="highlight">Service Usage 2:</span> {{ serviceusage2 }}</p>
+            <p><span class="highlight">Service Usage 3:</span> {{ serviceusage3 }}</p>
+
+            <!-- Prediction result -->
+            <p><span class="highlight">Prediction:</span> {{ prediction }}</p>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            Swal.fire({
+                icon: 'info',
+                title: 'Important Information',
+                text: "We are currently in the final stages of refining our pipeline. While the complete pipeline code has not yet been fully integrated into the application, we invite you to explore the detailed Jupyter Notebook, which includes the comprehensive Exploratory Data Analysis (EDA), advanced visualizations, and an in-depth evaluation of various models. Among these, the Support Vector Machine (SVM) has been identified as the most effective model for our problem statement. Please refer to the \"Final.ipynb\" file, which is included in the shared zip folder, for a thorough review of the code, model training, and performance metrics across different machine learning models. We are excited about the progress we’ve made and look forward to sharing the complete implementation with you soon.",
+                confirmButtonText: 'Understood',
+                footer: '<a href="{{ url_for('static', filename='Model.ipynb') }}" target="_blank">Click here to view the detailed Jupyter Notebook</a>',
+                showCancelButton: true,
+                cancelButtonText: 'Cancel',
+                cancelButtonColor: '#d33'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{{ url_for('static', filename='final.ipynb') }}"; // Redirect user to final.ipynb file
+                }
+            });
+        };
+    </script>
+
+</body>
+</html>

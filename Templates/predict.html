@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Data for Prediction</title>
+    <!-- Include SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.8/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- Include Particle.js for interactive background -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            height: 100vh;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Neumorphism effect container */
+        .neumorphism-container {
+            background: #e0e5ec;
+            border-radius: 20px;
+            box-shadow: 10px 10px 15px #a3b1c6, -10px -10px 15px #ffffff;
+            padding: 50px;
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 36px;
+            color: #333;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-container label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-container input,
+        .form-container select {
+            padding: 12px;
+            font-size: 14px;
+            border-radius: 8px;
+            border: none;
+            background: #e0e5ec;
+            box-shadow: inset 6px 6px 8px #a3b1c6, inset -6px -6px 8px #ffffff;
+        }
+
+        .form-container input:focus,
+        .form-container select:focus {
+            outline: none;
+            box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container button {
+            background-color: #6a11cb;
+            border: none;
+            color: white;
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container button:hover {
+            background-color: #2575fc;
+        }
+
+        .form-container button:active {
+            box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 10px;
+            }
+        }
+
+        /* Particle.js background */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Gradient Animation */
+        @keyframes gradient-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+
+    <div class="neumorphism-container">
+        <h1>Enter Data for Prediction</h1>
+        <div class="form-container">
+            <form method="POST" action="/predict">
+                <label for="gender">Gender:</label>
+                <select name="gender" id="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+
+                <label for="age">Age:</label>
+                <input type="number" name="age" id="age" required>
+
+                <label for="tenure">Tenure:</label>
+                <input type="number" name="tenure" id="tenure" required>
+
+                <label for="monthlycharges">Monthly Charges:</label>
+                <input type="number" name="monthlycharges" id="monthlycharges" required>
+
+                <label for="totalcharges">Total Charges:</label>
+                <input type="number" name="totalcharges" id="totalcharges" required>
+
+                <label for="paymentmethod">Payment Method:</label>
+                <select name="paymentmethod" id="paymentmethod">
+                    <option value="cash">Cash</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="bank_transfer">Bank Transfer</option>
+                    <option value="credit_card">Credit Card</option>
+                </select>
+
+                <label for="serviceusage1">Service Usage 1:</label>
+                <input type="number" name="serviceusage1" id="serviceusage1" required>
+
+                <label for="serviceusage2">Service Usage 2:</label>
+                <input type="number" name="serviceusage2" id="serviceusage2" required>
+
+                <label for="serviceusage3">Service Usage 3:</label>
+                <input type="number" name="serviceusage3" id="serviceusage3" required>
+
+                <button type="submit">Predict</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Include SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.8/dist/sweetalert2.all.min.js"></script>
+
+    <!-- Particle.js initialization -->
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 2,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 4,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "window",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+</html>
